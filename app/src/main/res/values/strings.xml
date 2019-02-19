@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TikiExercise</string>
+    <string name="hot_keyword">Từ khóa hot</string>
+    <string name="network_is_not_available">Network is not available</string>
+</resources>
