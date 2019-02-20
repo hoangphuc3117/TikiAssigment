@@ -23,7 +23,12 @@ class PresenterImpl : Presenter {
             .subscribe(object : Subscriber<Response<ResponseBody>>() {
                 override fun onNext(response: Response<ResponseBody>) {
                     val jsonString = response.body().string()
-                    mView?.loadKeywordsOnUI(Util.parseJsonStringToArray(jsonString)!!)
+                    val keywords = Util.parseJsonStringToArray(jsonString)!!
+                    if(!keywords.isEmpty()){
+                        mView?.loadKeywordsOnUI(keywords)
+                    }else {
+                        mView?.showNoKeywords()
+                    }
                 }
 
                 override fun onCompleted() {
@@ -31,7 +36,7 @@ class PresenterImpl : Presenter {
                 }
 
                 override fun onError(e: Throwable?) {
-                    mView?.showError()
+                    mView?.showNoKeywords()
                 }
 
             })

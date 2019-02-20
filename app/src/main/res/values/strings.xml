@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">TikiExercise</string>
-    <string name="hot_keyword">Từ khóa hot</string>
+    <string name="app_name">Tiki Exercise</string>
+    <string name="hot_keyword">Hot Keywords</string>
     <string name="network_is_not_available">Network is not available</string>
+    <string name="get_no_keywords">Get no keywords</string>
 </resources>
