@@ -1,17 +1,11 @@
 package ppapps.tikiexercise.util
 
-import android.content.Context
 import android.graphics.Color
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import java.util.*
-import com.google.gson.JsonParser
-import com.google.gson.JsonElement
 import org.json.JSONException
 import org.json.JSONArray
 import ppapps.tikiexercise.model.SrUserModel
 import kotlin.collections.ArrayList
-
 
 /**
  * Function to check keyword contains 1 word or >= 2 words
@@ -30,6 +24,7 @@ fun String.splitKeywordTo2Lines(): String {
     if (kw.isKeywordAWord() || kw.contains("\n")) {
         return kw
     } else {
+        //Find space that is near the center of string, then replace this space with \n
         val length = kw.length
         val leftPos = length / 2
         val rightPos = kw.length / 2
@@ -40,7 +35,6 @@ fun String.splitKeywordTo2Lines(): String {
             if (rightCharacter.equals(' ')) {
                 spaceCharacterPos = rightPos + i
                 break
-
             }
             if (leftCharacter.equals(' ')) {
                 spaceCharacterPos = leftPos - i
@@ -58,6 +52,9 @@ object Util{
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
     }
 
+    /**
+     * Function to parse json array without key
+     */
     fun parseJsonStringToArray(json : String): ArrayList<String>?{
         try {
             val result = ArrayList<String>()

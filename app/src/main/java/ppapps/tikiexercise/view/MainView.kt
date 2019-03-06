@@ -5,5 +5,9 @@ import ppapps.tikiexercise.model.SrUserModel
 interface MainView {
     fun loadKeywordsOnUI(keywordList: ArrayList<SrUserModel>)
 
-    fun showError()
+    fun showProgressBar()
+
+    fun showKeywordRecyclerView()
+
+    fun showNoKeywords()
 }
