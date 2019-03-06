@@ -6,7 +6,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val URL = "https://raw.githubusercontent.com/tikivn/android-home-test/v2/"
+//const val URL = "https://raw.githubusercontent.com/tikivn/android-home-test/v2/"
+const val URL = "https://api.github.com/"
 
 object NetworkServiceFactory {
     private var mRetrofit: Retrofit? = null

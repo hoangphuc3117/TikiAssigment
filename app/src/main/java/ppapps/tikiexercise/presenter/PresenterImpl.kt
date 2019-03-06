@@ -23,7 +23,29 @@ class PresenterImpl : Presenter {
             .subscribe(object : Subscriber<Response<ResponseBody>>() {
                 override fun onNext(response: Response<ResponseBody>) {
                     val jsonString = response.body().string()
-                    mView?.loadKeywordsOnUI(Util.parseJsonStringToArray(jsonString)!!)
+//                    mView?.loadKeywordsOnUI(Util.parseJsonStringToArray(jsonString)!!)
+                }
+
+                override fun onCompleted() {
+
+                }
+
+                override fun onError(e: Throwable?) {
+                    mView?.showError()
+                }
+
+            })
+    }
+
+    override fun getSrUsers() {
+        mSubscription = NetworkServiceFactory.provideNetworkService().getSrUsers(25, 1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Subscriber<Response<ResponseBody>>() {
+                override fun onNext(response: Response<ResponseBody>) {
+                    val jsonString = response.body().string()
+                    val srUserArrays = Util.parseJsonStringToArraySrUser(jsonString)
+                    srUserArrays?.let {  mView?.loadKeywordsOnUI(it) }
                 }
 
                 override fun onCompleted() {

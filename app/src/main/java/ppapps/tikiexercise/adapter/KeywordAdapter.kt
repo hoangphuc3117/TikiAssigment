@@ -8,23 +8,24 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import ppapps.tikiexercise.R
+import ppapps.tikiexercise.model.SrUserModel
 import ppapps.tikiexercise.util.Util
 import ppapps.tikiexercise.util.isKeywordAWord
 import ppapps.tikiexercise.util.splitKeywordTo2Lines
 
 class KeywordAdapter : RecyclerView.Adapter<KeywordAdapter.KeywordViewHolder>() {
-    private var mData: ArrayList<String>? = null
-    private var mCachedColor: ArrayList<Int>? = null
+    private var mData: ArrayList<SrUserModel>? = null
+//    private var mCachedColor: ArrayList<Int>? = null
 
-    fun setData(keywordList: ArrayList<String>) {
+    fun setData(keywordList: ArrayList<SrUserModel>) {
         mData = keywordList
-        //Set cache color
-        if (mData != null && (mCachedColor == null || mCachedColor!!.size < mData!!.size)) {
-            mCachedColor = ArrayList<Int>()
-            for (i in 0..mData!!.size) {
-                mCachedColor!!.add(Util.randomColor())
-            }
-        }
+//        //Set cache color
+//        if (mData != null && (mCachedColor == null || mCachedColor!!.size < mData!!.size)) {
+//            mCachedColor = ArrayList<Int>()
+//            for (i in 0..mData!!.size) {
+//                mCachedColor!!.add(Util.randomColor())
+//            }
+//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): KeywordViewHolder {
@@ -41,22 +42,22 @@ class KeywordAdapter : RecyclerView.Adapter<KeywordAdapter.KeywordViewHolder>() 
     }
 
     override fun onBindViewHolder(viewHolder: KeywordViewHolder, pos: Int) {
-        var keyword = mData?.get(pos)
-        if (!keyword!!.isKeywordAWord()) {
-            keyword = keyword.splitKeywordTo2Lines()
-            mData?.set(pos, keyword)
-        }
-        viewHolder.mTvKeyword.text = keyword
+        val srUser = mData?.get(pos)
+        viewHolder.mTvTitle.text = srUser?.title
+        viewHolder.mTvDescription.text = srUser?.detailDescription
+        viewHolder.mTvAvatar.text = srUser?.avatar
 
         //Set background with random color
-        viewHolder.mRlContainer.setBackgroundResource(R.drawable.rounded_corner)
-        val drawable = viewHolder.mRlContainer.background as GradientDrawable
-        drawable.setColor(Util.randomColor())
+//        viewHolder.mRlContainer.setBackgroundResource(R.drawable.rounded_corner)
+//        val drawable = viewHolder.mRlContainer.background as GradientDrawable
+//        drawable.setColor(Util.randomColor())
 
     }
 
     inner class KeywordViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val mTvKeyword = itemView.findViewById<TextView>(R.id.layout_item_host_keyword_tv_keyword)!!
-        val mRlContainer = itemView.findViewById<RelativeLayout>(R.id.layout_item_host_keyword_rl_container)
+        val mTvTitle = itemView.findViewById<TextView>(R.id.layout_item_tv_user_title)!!
+        val mTvDescription = itemView.findViewById<TextView>(R.id.layout_item_tv_user_description)!!
+        val mTvAvatar = itemView.findViewById<TextView>(R.id.layout_item_tv_user_avatar)!!
+//        val mRlContainer = itemView.findViewById<RelativeLayout>(R.id.layout_item_host_keyword_rl_container)
     }
 }

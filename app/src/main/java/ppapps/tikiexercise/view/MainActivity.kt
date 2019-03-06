@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ppapps.tikiexercise.util.HorizontalSpaceItemDecoration
 import ppapps.tikiexercise.adapter.KeywordAdapter
 import ppapps.tikiexercise.R
+import ppapps.tikiexercise.model.SrUserModel
 import ppapps.tikiexercise.presenter.Presenter
 import ppapps.tikiexercise.presenter.PresenterImpl
 
@@ -23,13 +24,13 @@ class MainActivity : AppCompatActivity(), MainView {
         mPresenter = PresenterImpl()
         mPresenter.attachView(this)
         if (isNetworkConnected()) {
-            mPresenter.getKeywords()
+            mPresenter.getSrUsers()
         } else {
             Toast.makeText(this, "network_is_not_available", Toast.LENGTH_LONG).show()
         }
     }
 
-    override fun loadKeywordsOnUI(keywordList: ArrayList<String>) {
+    override fun loadKeywordsOnUI(keywordList: ArrayList<SrUserModel>) {
         if (act_main_rlv_hot_keywords.adapter == null) {
             setKeywordRecyclerView(keywordList)
         } else {
@@ -39,16 +40,16 @@ class MainActivity : AppCompatActivity(), MainView {
         }
     }
 
-    private fun setKeywordRecyclerView(keywordList: ArrayList<String>) {
+    private fun setKeywordRecyclerView(keywordList: ArrayList<SrUserModel>) {
         val adapter = KeywordAdapter()
         adapter.setData(keywordList)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         act_main_rlv_hot_keywords.layoutManager = layoutManager
         act_main_rlv_hot_keywords.adapter = adapter
         act_main_rlv_hot_keywords.setHasFixedSize(true)
 
         val horizontalSpaceItemDecoration =
-            HorizontalSpaceItemDecoration((resources.getDimension(R.dimen.dimen_size_20dp)).toInt())
+            HorizontalSpaceItemDecoration((resources.getDimension(R.dimen.dimen_size_16dp)).toInt())
         act_main_rlv_hot_keywords?.addItemDecoration(horizontalSpaceItemDecoration)
     }
 

@@ -9,6 +9,7 @@ import com.google.gson.JsonParser
 import com.google.gson.JsonElement
 import org.json.JSONException
 import org.json.JSONArray
+import ppapps.tikiexercise.model.SrUserModel
 import kotlin.collections.ArrayList
 
 
@@ -64,6 +65,27 @@ object Util{
             for (i in 0 until itemArray.length()) {
                 val value = itemArray.getString(i)
                 result.add(value)
+            }
+            return result
+        } catch (e: JSONException) {
+            e.printStackTrace()
+            return null
+        }
+    }
+
+    fun parseJsonStringToArraySrUser(json : String): ArrayList<SrUserModel>?{
+        try {
+            val result = ArrayList<SrUserModel>()
+            val itemArray = JSONArray(json)
+            for (i in 0 until itemArray.length()) {
+                val jsonObject = itemArray.getJSONObject(i)
+                val title = jsonObject.getString("full_name")
+                val avatar: String = jsonObject.getString("html_url")
+                val description: String = jsonObject.getString("description")
+                val srUser: SrUserModel= SrUserModel(title)
+                srUser.avatar = avatar
+                srUser.detailDescription = description
+                result.add(srUser)
             }
             return result
         } catch (e: JSONException) {

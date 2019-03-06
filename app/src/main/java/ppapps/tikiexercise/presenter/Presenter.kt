@@ -4,4 +4,5 @@ import ppapps.tikiexercise.view.MainView
 
 interface Presenter :BasePresenter<MainView>{
     fun getKeywords()
+    fun getSrUsers()
 }
