@@ -31,9 +31,8 @@ class PresenterImpl : Presenter {
                 }
 
                 override fun onError(e: Throwable?) {
-                    mView?.showError()
+                    mView?.showNoKeywords()
                 }
-
             })
     }
 
@@ -46,7 +45,7 @@ class PresenterImpl : Presenter {
                     val jsonString = response.body().string()
                     val srUserArrays = Util.parseJsonStringToArraySrUser(jsonString)
                     srUserArrays?.let {  mView?.loadKeywordsOnUI(it) }
-                    val keywords = Util.parseJsonStringToArray(jsonString)!!
+                    val keywords = Util.parseJsonStringToArraySrUser(jsonString)!!
                     if(!keywords.isEmpty()){
                         mView?.loadKeywordsOnUI(keywords)
                     }else {
@@ -61,7 +60,6 @@ class PresenterImpl : Presenter {
                 override fun onError(e: Throwable?) {
                     mView?.showNoKeywords()
                 }
-
             })
     }
 
